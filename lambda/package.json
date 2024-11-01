@@ -1,0 +1,11 @@
+
+{
+    "name": "myFunction",
+    "version": "1.0.0",
+    "description": "Simple Lambda function interacting with DynamoDB",
+    "main": "index.js",
+    "dependencies": {
+      "aws-sdk": "^2.814.0"
+    }
+  }
+  
