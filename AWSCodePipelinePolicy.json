@@ -1,0 +1,20 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Action": [
+          "codepipeline:*",
+          "iam:PassRole",
+          "cloudwatch:*",
+          "s3:*",
+          "sns:*",
+          "lambda:*",
+          "cognito-idp:*"
+        ],
+        "Resource": "*"
+      }
+    ]
+  }
+
+  

@@ -1,0 +1,18 @@
+version: 0.0
+Resources:
+  - myFunction:
+      Type: AWS::Lambda::Function
+      Properties:
+        Name: myFunction
+        Alias: live
+        CurrentVersion: LIVE_VERSION_PLACEHOLDER
+        TargetVersion: TARGET_VERSION_PLACEHOLDER
+Hooks:
+  BeforeAllowTraffic:
+    - location: scripts/update_appspec.sh
+      timeout: 300
+      runas: root
+  AfterAllowTraffic:
+    - location: scripts/post_validation.sh
+      timeout: 300
+      runas: root
