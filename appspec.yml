@@ -5,11 +5,11 @@ Resources:
       Properties:
         Name: myFunction
         Alias: live
-        CurrentVersion: LIVE_VERSION_PLACEHOLDER
-        TargetVersion: TARGET_VERSION_PLACEHOLDER
+        CurrentVersion: "1"  # Replaced placeholder
+        TargetVersion: "2"   # Replaced placeholder
 Hooks:
   BeforeAllowTraffic:
-    - location: scripts/update_appspec.sh
+    - location: scripts/pre_validation.sh
       timeout: 300
       runas: root
   AfterAllowTraffic:
