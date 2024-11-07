@@ -15,5 +15,6 @@ phases:
       - aws lambda publish-version --function-name myFunction --description "New version from CodeBuild" --query 'Version' --output text > ../version.txt
 artifacts:
   files:
+    - appspec.yml
     - lambda/myFunction/function.zip
     - version.txt
