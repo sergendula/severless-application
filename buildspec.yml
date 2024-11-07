@@ -6,15 +6,25 @@ phases:
       nodejs: 14
     commands:
       - echo Installing dependencies...
-      - cd lambda/myFunction
       - npm install
   build:
     commands:
       - echo Building the application...
-      - zip -r function.zip .
-      - aws lambda publish-version --function-name myFunction --description "New version from CodeBuild" --query 'Version' --output text > ../version.txt
+      - npm run build
+      - echo Publishing Lambda version...
+      - LATEST_VERSION=$(aws lambda publish-version --function-name myFunction --description "New version from CodeBuild" --query 'Version' --output text)
+      - echo "Latest Version: $LATEST_VERSION"
+      - sed -i "s/LIVE_VERSION_PLACEHOLDER/$LATEST_VERSION/" appspec.yml
+      - TARGET_VERSION=$LATEST_VERSION  # Assuming target is the same as latest
+      - sed -i "s/TARGET_VERSION_PLACEHOLDER/$TARGET_VERSION/" appspec.yml
+      - echo $LATEST_VERSION > ../version.txt
+  post_build:
+    commands:
+      - echo Build completed on `date`
 artifacts:
   files:
     - appspec.yml
-    - lambda/myFunction/function.zip
-    - version.txt
+    - scripts/**/*          # Include any scripts if used
+    - build/**/*            # Include build artifacts
+    - ../version.txt        # Include version file
+  discard-paths: no
